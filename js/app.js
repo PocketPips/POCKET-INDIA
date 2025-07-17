@@ -1,102 +1,91 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const productList = document.getElementById("product-list");
-  const cartIcon = document.querySelector(".cart-icon");
-  const cartCount = document.getElementById("cart-count");
+const products = [
+  { name: "Potato", price: 30, image: "images/potato.jpg" },
+  { name: "Ridge Gourd", price: 40, image: "images/ridge_ground.jpg" },
+  { name: "Lady Finger", price: 35, image: "images/lady_finger.jpg" },
+  { name: "Lemon", price: 60, image: "images/lemon.jpg" },
+  { name: "Chilli", price: 50, image: "images/chilli.jpg" },
+  { name: "Cucumber", price: 25, image: "images/cucumber.jpg" },
+  { name: "Mushroom", price: 80, image: "images/mushroom.jpg" },
+  { name: "Brinjal", price: 30, image: "images/brinjal.jpg" },
+  { name: "Pumpkin", price: 20, image: "images/pumpkin.jpg" }
+];
 
-  const cart = {};
+const cart = {};
+const productList = document.getElementById("product-list");
+const cartCount = document.getElementById("cart-count");
+const cartItems = document.getElementById("cart-items");
+const cartSummary = document.getElementById("cart-summary");
+const whatsappBtn = document.getElementById("whatsapp-order");
 
-  const products = [
-    { name: "Potato", image: "images/potato.jpg", price: 20 },
-    { name: "Ridge Gourd", image: "images/ridge_ground.jpg", price: 30 },
-    { name: "Lady Finger", image: "images/lady_finger.jpg", price: 25 },
-    { name: "Lemon", image: "images/lemon.jpg", price: 40 },
-    { name: "Chilli", image: "images/chilli.jpg", price: 60 },
-    { name: "Cucumber", image: "images/cucumber.jpg", price: 35 },
-    { name: "Mushroom", image: "images/mushroom.jpg", price: 80 },
-    { name: "Brinjal", image: "images/brinjal.jpg", price: 30 },
-    { name: "Pumpkin", image: "images/pumpkin.jpg", price: 20 }
-  ];
+function updateCartDisplay() {
+  let totalItems = 0;
+  cartItems.innerHTML = "";
 
-  function renderProducts() {
-    productList.innerHTML = "";
-    products.forEach((product, index) => {
-      const productCard = document.createElement("div");
-      productCard.classList.add("product-card");
-
-      productCard.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p>₹${product.price} /kg</p>
-        <div id="controls-${index}">
-          <button onclick="addToCart(${index})">Add to Cart</button>
-        </div>
-      `;
-      productList.appendChild(productCard);
-    });
+  for (const [name, { price, qty }] of Object.entries(cart)) {
+    totalItems += qty;
+    const li = document.createElement("li");
+    li.textContent = `${name} x ${qty} = ₹${qty * price}`;
+    cartItems.appendChild(li);
   }
 
-  window.addToCart = function (index) {
-    const product = products[index];
-    if (!cart[product.name]) cart[product.name] = 0;
-    cart[product.name]++;
-    updateCartCount();
-    updateControls(index);
-  };
+  cartCount.textContent = totalItems;
 
-  function removeFromCart(index) {
-    const product = products[index];
-    if (cart[product.name] > 0) cart[product.name]--;
-    if (cart[product.name] === 0) delete cart[product.name];
-    updateCartCount();
-    updateControls(index);
+  if (totalItems > 0) {
+    cartSummary.classList.remove("hidden");
+
+    const message = Object.entries(cart)
+      .map(([name, { qty }]) => `${name} x ${qty}`)
+      .join("%0A");
+    whatsappBtn.href = `https://wa.me/918082753024?text=Hi%20Pocket%20India,%20I%20want%20to%20order:%0A${message}`;
+  } else {
+    cartSummary.classList.add("hidden");
   }
+}
 
-  function updateControls(index) {
-    const product = products[index];
-    const container = document.getElementById(`controls-${index}`);
-    const count = cart[product.name] || 0;
+function createProductCard(product) {
+  const card = document.createElement("div");
+  card.className = "product-card";
 
-    if (count === 0) {
-      container.innerHTML = `<button onclick="addToCart(${index})">Add to Cart</button>`;
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}" />
+    <h3>${product.name}</h3>
+    <p>₹${product.price}/kg</p>
+    <div class="cart-controls">
+      <button onclick="removeFromCart('${product.name}')">-</button>
+      <span id="qty-${product.name}">0</span>
+      <button onclick="addToCart('${product.name}', ${product.price})">+</button>
+    </div>
+  `;
+
+  return card;
+}
+
+function addToCart(name, price) {
+  if (!cart[name]) {
+    cart[name] = { qty: 0, price };
+  }
+  cart[name].qty++;
+  document.getElementById(`qty-${name}`).textContent = cart[name].qty;
+  updateCartDisplay();
+}
+
+function removeFromCart(name) {
+  if (cart[name]) {
+    cart[name].qty--;
+    if (cart[name].qty <= 0) {
+      delete cart[name];
+      document.getElementById(`qty-${name}`).textContent = 0;
     } else {
-      container.innerHTML = `
-        <div class="qty-controls">
-          <button onclick="removeFromCart(${index})">-</button>
-          <span>${count}</span>
-          <button onclick="addToCart(${index})">+</button>
-        </div>
-      `;
+      document.getElementById(`qty-${name}`).textContent = cart[name].qty;
     }
+    updateCartDisplay();
   }
+}
 
-  function updateCartCount() {
-    let total = 0;
-    Object.values(cart).forEach((qty) => (total += qty));
-    cartCount.textContent = total;
-  }
+function toggleCart() {
+  cartSummary.classList.toggle("hidden");
+}
 
-  // Cart modal
-  const modal = document.createElement("div");
-  modal.classList.add("cart-modal");
-  document.body.appendChild(modal);
-
-  cartIcon.addEventListener("click", () => {
-    modal.innerHTML = `<h3>Your Cart</h3>`;
-    Object.keys(cart).forEach((item) => {
-      modal.innerHTML += `<div class="cart-item">${item} × ${cart[item]}</div>`;
-    });
-
-    modal.innerHTML += `<button class="order-btn" onclick="placeOrder()">Place Order on WhatsApp</button>`;
-    modal.style.display = modal.style.display === "block" ? "none" : "block";
-  });
-
-  window.placeOrder = function () {
-    const items = Object.keys(cart).map(
-      (item) => `${item} x ${cart[item]}`
-    ).join("%0A");
-    const message = `Hello,%0AI want to order:%0A${items}`;
-    window.open(`https://wa.me/918082753024?text=${message}`);
-  };
-
-  renderProducts();
+products.forEach(product => {
+  productList.appendChild(createProductCard(product));
 });
