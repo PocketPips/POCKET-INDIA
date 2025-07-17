@@ -2,31 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocket India - Grocery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pocket India - Grocery & Vegetables</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header>
-    <h1>Pocket India</h1>
-    <p>Fresh Vegetables and Groceries Delivered to You</p>
+    <h1>🛒 Pocket India</h1>
+    <p>Fresh groceries & vegetables delivered to your doorstep</p>
   </header>
 
-  <section class="products">
-    <div class="product">
-      <img src="images/tomatoo.jpg" alt="Tomatoes">
-      <h2>Tomatoes</h2>
-      <button class="add-btn" data-id="tomato">Add to Cart</button>
+  <main>
+    <div class="products" id="product-list">
+      <!-- Items will be injected by JS -->
     </div>
-    <div class="product">
-      <img src="images/-onions-background-photo.jpg" alt="Onions">
-      <h2>Onions</h2>
-      <button class="add-btn" data-id="onion">Add to Cart</button>
-    </div>
-  </section>
+  </main>
 
   <footer>
-    <a id="checkout-link" href="#" target="_blank">Place Order via WhatsApp</a>
+    <button id="checkoutBtn">Place Order on WhatsApp</button>
   </footer>
 
   <script src="js/app.js"></script>
