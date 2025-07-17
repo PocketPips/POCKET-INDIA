@@ -3,43 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocket India - Cartoon Grocery Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+  <title>Pocket India Grocery</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <h1>🥕 Pocket India</h1>
-    <p>Your fun & fresh online grocery hub!</p>
+  <header>
+    <h1>🛒 Pocket India</h1>
+    <p>Fresh Groceries & Vegetables Delivered Fast</p>
   </header>
 
-  <nav class="category-nav">
-    <button onclick="filterCategory('all')">All</button>
-    <button onclick="filterCategory('vegetables')">Vegetables</button>
-    <button onclick="filterCategory('fruits')">Fruits</button>
-    <button onclick="filterCategory('dairy')">Dairy</button>
-    <button onclick="filterCategory('snacks')">Snacks</button>
-    <button onclick="filterCategory('beverages')">Beverages</button>
-  </nav>
-
   <main>
-    <section class="product-grid" id="productGrid">
-      <!-- Items will be injected here by JS -->
+    <section id="categories">
+      <button class="category-btn" onclick="showCategory('vegetables')">🥦 Vegetables</button>
+      <button class="category-btn" onclick="showCategory('fruits')">🍎 Fruits</button>
+      <button class="category-btn" onclick="showCategory('dairy')">🥛 Dairy</button>
+      <button class="category-btn" onclick="showCategory('snacks')">🍿 Snacks</button>
+      <button class="category-btn" onclick="showCategory('beverages')">🥤 Beverages</button>
+    </section>
+
+    <section id="product-container" class="product-section">
+      <!-- Products will be inserted here dynamically -->
+    </section>
+
+    <section id="cart" class="cart-section">
+      <h2>Your Cart 🧺</h2>
+      <ul id="cart-items"></ul>
+      <p id="total-price">Total: ₹0</p>
+      <a id="whatsapp-order" target="_blank" href="https://wa.me/918082753024">Place Order via WhatsApp</a>
     </section>
   </main>
 
-  <div class="cart-container" id="cartContainer">
-    <h2>🛒 Cart</h2>
-    <ul id="cartItems"></ul>
-    <p class="total">Total: ₹<span id="cartTotal">0</span></p>
-    <a id="whatsappOrder" target="_blank">📲 Order on WhatsApp</a>
-  </div>
-
   <footer>
-    <p>&copy; 2025 Pocket India. All cartoon rights reserved.</p>
+    <p>Made with ❤️ in India | Pocket India Grocery</p>
   </footer>
 
   <script src="js/app.js"></script>
 </body>
 </html>
-
