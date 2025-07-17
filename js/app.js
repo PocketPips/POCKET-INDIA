@@ -1,104 +1,69 @@
+// app.js
 
 const products = [
-  { name: "Potato", price: 20, image: "images/vegetable/potato.png" },
-  { name: "Tomato", price: 30, image: "images/vegetable/tomato.png" },
-  { name: "Onion", price: 28, image: "images/vegetable/onion.png" },
-  { name: "Cucumber", price: 25, image: "images/vegetable/cucumber.png" },
-  { name: "Lemon", price: 40, image: "images/vegetable/lemon.png" },
-  { name: "Pumpkin", price: 18, image: "images/vegetable/pumpkin.png" },
-  { name: "Brinjal", price: 35, image: "images/vegetable/brinjal.png" },
-  { name: "Lady Finger", price: 32, image: "images/vegetable/lady_finger.png" },
-  { name: "Green Chilli", price: 50, image: "images/vegetable/chilli.png" },
-  { name: "Mushroom", price: 60, image: "images/vegetable/mushroom.png" }
+  { name: "Tomato", price: 28, image: "images/vegetable/tomato.jpg" },
+  { name: "Potato", price: 24, image: "images/vegetable/potato.jpg" },
+  { name: "Onion", price: 30, image: "images/vegetable/onion.jpg" },
+  { name: "Lemon", price: 100, image: "images/vegetable/lemon.jpg" },
+  { name: "Pumpkin", price: 20, image: "images/vegetable/pumpkin.jpg" },
+  { name: "Mushroom", price: 110, image: "images/vegetable/mushroom.jpg" },
+  { name: "Chilli", price: 70, image: "images/vegetable/chilli.jpg" },
+  { name: "Lady Finger", price: 44, image: "images/vegetable/ladyfinger.jpg" },
+  { name: "Ridge Gourd", price: 36, image: "images/vegetable/ridgegourd.jpg" },
+  { name: "Brinjal", price: 26, image: "images/vegetable/brinjal.jpg" }
 ];
 
 const cart = {};
 
 function renderProducts() {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
+  const list = document.getElementById('product-list');
+  list.innerHTML = '';
 
-  products.forEach((product, index) => {
-    const item = document.createElement("div");
-    item.className = "product-item";
-    const quantity = cart[product.name] || 0;
-
+  products.forEach((p, i) => {
+    const item = document.createElement('div');
+    item.className = 'product-item';
     item.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>₹${product.price}/kg</p>
-      <div class="cart-controls" id="controls-${index}">
-        ${
-          quantity === 0
-            ? `<button onclick="addToCart(${index})" class="add-btn">Add to Cart</button>`
-            : `
-            <button class="qty-btn" onclick="decreaseQty(${index})">-</button>
-            <span>${quantity}</span>
-            <button class="qty-btn" onclick="increaseQty(${index})">+</button>
-          `
-        }
-      </div>
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>₹${p.price}/kg</p>
+      <button class="add-btn" onclick="addToCart(${i})">Add to Cart</button>
     `;
-    productList.appendChild(item);
+    list.appendChild(item);
   });
 }
 
 function addToCart(index) {
   const product = products[index];
-  cart[product.name] = 1;
-  renderProducts();
-  updateCartSummary();
-}
-
-function increaseQty(index) {
-  const product = products[index];
-  cart[product.name]++;
-  renderProducts();
-  updateCartSummary();
-}
-
-function decreaseQty(index) {
-  const product = products[index];
-  if (cart[product.name] > 1) {
-    cart[product.name]--;
+  if (cart[product.name]) {
+    cart[product.name]++;
   } else {
-    delete cart[product.name];
+    cart[product.name] = 1;
   }
-  renderProducts();
-  updateCartSummary();
+  updateCart();
 }
 
-function updateCartSummary() {
-  const summaryBox = document.getElementById("cart-summary");
-  const itemCount = Object.values(cart).reduce((a, b) => a + b, 0);
-  const cartIcon = document.getElementById("cart-icon");
-  cartIcon.textContent = `🛒 ${itemCount}`;
+function updateCart() {
+  const cartCount = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+  document.getElementById('cart-count').textContent = cartCount;
 
-  const cartList = document.getElementById("cart-list");
-  cartList.innerHTML = "";
+  const cartList = document.getElementById('cart-items');
+  cartList.innerHTML = '';
+  for (const [name, qty] of Object.entries(cart)) {
+    cartList.innerHTML += `<li>${name} - ${qty} kg</li>`;
+  }
 
-  Object.entries(cart).forEach(([name, qty]) => {
-    const li = document.createElement("li");
-    li.textContent = `${name}: ${qty} kg`;
-    cartList.appendChild(li);
-  });
-
-  summaryBox.style.display = itemCount > 0 ? "block" : "none";
+  document.getElementById('cart-summary').style.display = cartCount > 0 ? 'block' : 'none';
 }
 
 function toggleCart() {
-  const summaryBox = document.getElementById("cart-summary");
-  summaryBox.style.display = summaryBox.style.display === "none" ? "block" : "none";
+  const cartDiv = document.getElementById('cart-summary');
+  cartDiv.style.display = cartDiv.style.display === 'none' ? 'block' : 'none';
 }
 
 function placeOrder() {
-  let message = "Hello, I would like to order:\n";
-  Object.entries(cart).forEach(([name, qty]) => {
-    message += `- ${name}: ${qty} kg\n`;
-  });
-  const whatsappUrl = `https://wa.me/918082753024?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, "_blank");
+  const items = Object.entries(cart).map(([name, qty]) => `${name} - ${qty} kg`).join('%0A');
+  const message = `Hello Pocket India,%0AHere is my order:%0A${items}`;
+  window.open(`https://wa.me/918082753024?text=${message}`, '_blank');
 }
 
-document.getElementById("cart-icon").addEventListener("click", toggleCart);
-renderProducts();
+window.onload = renderProducts;

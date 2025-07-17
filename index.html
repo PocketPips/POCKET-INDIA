@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pocket India - har jeb ka saathi</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket India</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+  <script defer src="app.js"></script>
 </head>
 <body>
   <header class="site-header">
-    <h1 class="animated-title">Pocket India 🛒</h1>
+    <h1 class="animated-title">Pocket India</h1>
     <div class="slogan">har jeb ka saathi</div>
     <div class="provider">Today served by Lovely Vegetable Shop, Bari Brahmna</div>
-    <div class="cart-icon" id="cart-icon">🛒</div>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
+    </div>
   </header>
 
-  <section class="category">
-    <h2>Fresh Vegetables</h2>
-    <div class="product-list"></div>
-  </section>
+  <main>
+    <section class="category">
+      <h2>Vegetables & Grocery</h2>
+      <div class="product-list" id="product-list"></div>
+    </section>
+  </main>
 
-  <div class="cart-summary">
-    <h3>Cart Summary</h3>
+  <div class="cart-summary" id="cart-summary">
+    <h3>Your Cart</h3>
     <ul id="cart-items"></ul>
-    <a id="whatsapp-link" target="_blank">
-      <button class="whatsapp-btn">Place Order on WhatsApp</button>
-    </a>
+    <button class="whatsapp-btn" onclick="placeOrder()">Place Order on WhatsApp</button>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
