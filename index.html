@@ -3,119 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocket India - Fresh Grocery Delivery</title>
+  <title>Pocket India </title>
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Pocket India Grocery Store</h1>
+  <div class="background-design"></div>
+  <header class="site-header">
+    <h1 class="animated-title">Pocket India</h1>
+    <p class="slogan">har jeb ka saathi</p>
+    <p class="provider">Today served by: <strong>Lovely Vegetable Shop</strong></p>
+    <div class="cart-icon">
+      🛒 <span id="cart-count">0</span>
+    </div>
   </header>
 
-  <section class="category" id="vegetables">
-    <h2>Fresh Vegetables</h2>
-    <div class="product-list">
-
-      <!-- Potato -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/potato.jpg" class="slider-img active" />
-          <img src="images/potato_01.jpg" class="slider-img" />
-        </div>
-        <h3>Potato</h3>
-        <p>₹25/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Potato', 25)">Add</button>
+  <main>
+    <section class="category" id="vegetables">
+      <h2>Fresh Vegetables</h2>
+      <div class="product-list" id="product-list">
+        <!-- Products will be dynamically inserted here -->
       </div>
+    </section>
+  </main>
 
-      <!-- Ridge Ground -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/ridgeground.jpg" class="slider-img active" />
-          <img src="images/ridgeground_01.jpg" class="slider-img" />
-        </div>
-        <h3>Ridge Ground</h3>
-        <p>₹30/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Ridge Ground', 30)">Add</button>
-      </div>
-
-      <!-- Lady Finger -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/ladyfinger.jpg" class="slider-img active" />
-          <img src="images/ladyfinger_01.jpg" class="slider-img" />
-        </div>
-        <h3>Lady Finger</h3>
-        <p>₹40/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Lady Finger', 40)">Add</button>
-      </div>
-
-      <!-- Lemon -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/lemon.jpg" class="slider-img active" />
-          <img src="images/lemon_01.jpg" class="slider-img" />
-        </div>
-        <h3>Lemon</h3>
-        <p>₹10/250g</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Lemon', 10)">Add</button>
-      </div>
-
-      <!-- Chilli -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/chilli.jpg" class="slider-img active" />
-          <img src="images/chilli_01.jpg" class="slider-img" />
-        </div>
-        <h3>Chilli</h3>
-        <p>₹15/250g</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Chilli', 15)">Add</button>
-      </div>
-
-      <!-- Cucumber -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/cucumber.jpg" class="slider-img active" />
-          <img src="images/cucumber_01.jpg" class="slider-img" />
-        </div>
-        <h3>Cucumber</h3>
-        <p>₹18/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Cucumber', 18)">Add</button>
-      </div>
-
-      <!-- Mushroom -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/mushroom.jpg" class="slider-img active" />
-          <img src="images/mushroom_01.jpg" class="slider-img" />
-        </div>
-        <h3>Mushroom</h3>
-        <p>₹60/200g</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Mushroom', 60)">Add</button>
-      </div>
-
-      <!-- Brinjal -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/brinjal.jpg" class="slider-img active" />
-          <img src="images/brinjal_01.jpg" class="slider-img" />
-        </div>
-        <h3>Brinjal</h3>
-        <p>₹28/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Brinjal', 28)">Add</button>
-      </div>
-
-      <!-- Pumpkin -->
-      <div class="product-card">
-        <div class="image-slider">
-          <img src="images/pumpkin.jpg" class="slider-img active" />
-          <img src="images/pumpkin_01.jpg" class="slider-img" />
-        </div>
-        <h3>Pumpkin</h3>
-        <p>₹22/kg</p>
-        <button class="add-to-cart" onclick="addToCart(this, 'Pumpkin', 22)">Add</button>
-      </div>
-
-    </div>
-  </section>
+  <script src="js/app.js"></script>
 </body>
 </html>
