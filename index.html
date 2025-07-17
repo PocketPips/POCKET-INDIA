@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pocket India - Fresh Grocery</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>🥬 Pocket India</h1>
-    <p>Fresh groceries delivered instantly!</p>
+    <h1>🥦 Pocket India</h1>
+    <p>Your Instant Grocery Partner</p>
   </header>
 
-  <main id="product-list" class="product-grid">
-    <!-- Product cards are inserted here via JS -->
-  </main>
+  <main id="product-list" class="product-grid"></main>
+
+  <div id="floating-cart">
+    🛒 <span id="cart-count">0</span> items
+  </div>
 
   <footer>
-    <button id="whatsapp-order-btn">📦 Place Order via WhatsApp</button>
+    <button id="whatsapp-order-btn">📱 Place Order via WhatsApp</button>
   </footer>
 
   <script src="js/app.js"></script>
