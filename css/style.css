@@ -1,61 +1,61 @@
+/* style.css */
+
 body {
   margin: 0;
-  font-family: 'Fredoka One', cursive;
-  background: linear-gradient(to bottom right, #fff8e1, #fce4ec);
+  font-family: 'Fredoka', sans-serif;
+  background: linear-gradient(to bottom right, #fff8e7, #f4e0c6);
   color: #333;
 }
 
-.background-animation {
-  background-image: url('../images/bg-animated-icons.png'); /* optional animated background icons */
-  position: fixed;
-  opacity: 0.05;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-size: contain;
-}
-
 .site-header {
+  background-color: #ff7f50;
+  color: white;
   text-align: center;
-  background-color: #ff7043;
-  color: #fff;
   padding: 20px;
-  border-radius: 0 0 25px 25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-  font-size: 3rem;
-  margin: 0;
-  animation: pop-in 1s ease-out forwards;
+.animated-title {
+  font-size: 2.5em;
+  animation: bounce 1.5s infinite;
 }
 
-@keyframes pop-in {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .slogan, .provider {
-  margin: 5px 0;
-  font-size: 1.2rem;
-  color: #fffde7;
+  font-size: 1.1em;
 }
 
-.cart-container {
-  position: fixed;
+.cart-icon {
+  position: absolute;
   top: 20px;
   right: 20px;
-  background: #43a047;
-  padding: 10px 16px;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.2rem;
+  font-size: 1.8em;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  background-color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: #ff7f50;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.cart-icon:hover {
+  transform: scale(1.1);
 }
 
 .category {
-  padding: 20px;
+  margin: 30px;
+}
+
+.category h2 {
+  color: #2f855a;
+  font-size: 2em;
 }
 
 .product-list {
@@ -66,13 +66,13 @@ body {
 }
 
 .product-card {
-  background-color: #fff;
+  background: white;
+  padding: 15px;
+  width: 220px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 10px;
   text-align: center;
-  width: 160px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
 
 .product-card:hover {
@@ -80,28 +80,72 @@ body {
 }
 
 .product-card img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  height: 160px;
 }
 
-.product-card button, .quantity-controls {
+.product-card button, .qty-controls {
   margin-top: 10px;
-}
-
-.add-btn, .qty-btn {
-  background-color: #43a047;
+  font-size: 1em;
+  background: #2f855a;
   color: white;
   border: none;
-  border-radius: 50px;
-  padding: 5px 12px;
+  padding: 8px 15px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 1rem;
-  margin: 0 4px;
 }
 
-.qty-display {
-  font-size: 1.1rem;
-  margin: 0 5px;
+.qty-controls span {
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.cart-modal {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: white;
+  border: 2px solid #ff7f50;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  width: 300px;
+  z-index: 1000;
+  display: none;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.cart-modal h3 {
+  margin-top: 0;
+  color: #2f855a;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-btn {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+}
+
+.order-btn:hover {
+  background-color: #e66a3f;
 }
 

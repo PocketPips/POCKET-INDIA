@@ -1,79 +1,102 @@
-const products = [
-  "potato", "ridge_ground", "lady_finger", "lemon", "chilli", "cucumber",
-  "mushroom", "brinjal", "pumpkin"
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const productList = document.getElementById("product-list");
+  const cartIcon = document.querySelector(".cart-icon");
+  const cartCount = document.getElementById("cart-count");
 
-const cart = {};
-const cartCount = document.getElementById("cart-count");
-const productList = document.getElementById("product-list");
+  const cart = {};
 
-function renderProducts() {
-  products.forEach(name => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-    div.innerHTML = `
-      <img src="images/${name}.png" alt="${name}" />
-      <p>${name.replace(/_/g, ' ').toUpperCase()}</p>
-      <div id="controls-${name}">
-        <button class="add-btn" onclick="addToCart('${name}')">Add to Cart</button>
-      </div>
-    `;
-    productList.appendChild(div);
-  });
-}
+  const products = [
+    { name: "Potato", image: "images/potato.jpg", price: 20 },
+    { name: "Ridge Gourd", image: "images/ridge_ground.jpg", price: 30 },
+    { name: "Lady Finger", image: "images/lady_finger.jpg", price: 25 },
+    { name: "Lemon", image: "images/lemon.jpg", price: 40 },
+    { name: "Chilli", image: "images/chilli.jpg", price: 60 },
+    { name: "Cucumber", image: "images/cucumber.jpg", price: 35 },
+    { name: "Mushroom", image: "images/mushroom.jpg", price: 80 },
+    { name: "Brinjal", image: "images/brinjal.jpg", price: 30 },
+    { name: "Pumpkin", image: "images/pumpkin.jpg", price: 20 }
+  ];
 
-function addToCart(name) {
-  if (!cart[name]) cart[name] = 1;
-  else cart[name]++;
+  function renderProducts() {
+    productList.innerHTML = "";
+    products.forEach((product, index) => {
+      const productCard = document.createElement("div");
+      productCard.classList.add("product-card");
 
-  updateCartUI(name);
-  updateCartCount();
-}
+      productCard.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>₹${product.price} /kg</p>
+        <div id="controls-${index}">
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        </div>
+      `;
+      productList.appendChild(productCard);
+    });
+  }
 
-function removeFromCart(name) {
-  if (cart[name]) {
-    cart[name]--;
-    if (cart[name] <= 0) delete cart[name];
-    updateCartUI(name);
+  window.addToCart = function (index) {
+    const product = products[index];
+    if (!cart[product.name]) cart[product.name] = 0;
+    cart[product.name]++;
     updateCartCount();
-  }
-}
+    updateControls(index);
+  };
 
-function updateCartUI(name) {
-  const controls = document.getElementById(`controls-${name}`);
-  if (cart[name]) {
-    controls.innerHTML = `
-      <button class="qty-btn" onclick="removeFromCart('${name}')">-</button>
-      <span class="qty-display">${cart[name]}</span>
-      <button class="qty-btn" onclick="addToCart('${name}')">+</button>
-    `;
-  } else {
-    controls.innerHTML = `
-      <button class="add-btn" onclick="addToCart('${name}')">Add to Cart</button>
-    `;
-  }
-}
-
-function updateCartCount() {
-  let total = 0;
-  for (let item in cart) total += cart[item];
-  cartCount.textContent = total;
-}
-
-function openWhatsAppOrder() {
-  if (Object.keys(cart).length === 0) {
-    alert("Your cart is empty!");
-    return;
+  function removeFromCart(index) {
+    const product = products[index];
+    if (cart[product.name] > 0) cart[product.name]--;
+    if (cart[product.name] === 0) delete cart[product.name];
+    updateCartCount();
+    updateControls(index);
   }
 
-  let message = "Hello! I want to order the following:\n";
-  for (let item in cart) {
-    message += `• ${item.replace(/_/g, ' ')} x ${cart[item]}\n`;
+  function updateControls(index) {
+    const product = products[index];
+    const container = document.getElementById(`controls-${index}`);
+    const count = cart[product.name] || 0;
+
+    if (count === 0) {
+      container.innerHTML = `<button onclick="addToCart(${index})">Add to Cart</button>`;
+    } else {
+      container.innerHTML = `
+        <div class="qty-controls">
+          <button onclick="removeFromCart(${index})">-</button>
+          <span>${count}</span>
+          <button onclick="addToCart(${index})">+</button>
+        </div>
+      `;
+    }
   }
 
-  const encodedMessage = encodeURIComponent(message);
-  const phoneNumber = "8082753024";
-  window.open(`https://wa.me/91${phoneNumber}?text=${encodedMessage}`, "_blank");
-}
+  function updateCartCount() {
+    let total = 0;
+    Object.values(cart).forEach((qty) => (total += qty));
+    cartCount.textContent = total;
+  }
 
-renderProducts();
+  // Cart modal
+  const modal = document.createElement("div");
+  modal.classList.add("cart-modal");
+  document.body.appendChild(modal);
+
+  cartIcon.addEventListener("click", () => {
+    modal.innerHTML = `<h3>Your Cart</h3>`;
+    Object.keys(cart).forEach((item) => {
+      modal.innerHTML += `<div class="cart-item">${item} × ${cart[item]}</div>`;
+    });
+
+    modal.innerHTML += `<button class="order-btn" onclick="placeOrder()">Place Order on WhatsApp</button>`;
+    modal.style.display = modal.style.display === "block" ? "none" : "block";
+  });
+
+  window.placeOrder = function () {
+    const items = Object.keys(cart).map(
+      (item) => `${item} x ${cart[item]}`
+    ).join("%0A");
+    const message = `Hello,%0AI want to order:%0A${items}`;
+    window.open(`https://wa.me/918082753024?text=${message}`);
+  };
+
+  renderProducts();
+});
