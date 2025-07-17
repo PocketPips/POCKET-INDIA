@@ -1,64 +1,120 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>POCKET INDIA – Fresh Groceries & Vegetables</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket India - Grocery & Vegetables</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('images/vegetables-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    header {
+      background-color: rgba(0, 100, 0, 0.85);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .product {
+      background: #fff;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart-button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart-button:hover {
+      background: #218838;
+    }
+    #cart-display {
+      background: white;
+      padding: 1rem;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      border: 2px solid #28a745;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="container">
-      <h1 class="logo">POCKET INDIA</h1>
-      <nav class="nav">
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
-        <button id="cart-toggle" aria-label="Toggle cart">🛒 <span id="cart-count">0</span></button>
-      </nav>
-    </div>
+  <header>
+    <h1>🛒 Pocket India</h1>
+    <p>Fresh Grocery & Vegetables Delivered to You</p>
   </header>
 
-  <section class="hero">
-    <div class="container">
-      <h2>Farm‑Fresh Vegetables & Groceries Delivered</h2>
-      <p>Order now and get fresh produce at your doorstep.</p>
-      <button onclick="scrollIntoProducts()">Shop Now</button>
-    </div>
-  </section>
+  <div id="product-list" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
 
-  <section id="products" class="products container">
-    <div class="product-card">
-      <img src="images/tomato.jpg" alt="Tomato">
-      <h3>Tomato</h3>
-      <p>₹20 / kg</p>
-      <button onclick="addToCart('Tomato', 20)">Add to Cart</button>
-    </div>
-    <div class="product-card">
-      <img src="images/onion.jpg" alt="Onion">
-      <h3>Onion</h3>
-      <p>₹25 / kg</p>
-      <button onclick="addToCart('Onion', 25)">Add to Cart</button>
-    </div>
-  </section>
+  <div id="cart-display">
+    🧺 Cart: <span id="cart-count">0</span> items
+    <br><br>
+    <a id="whatsapp-link" href="" target="_blank">
+      <button class="cart-button">Place Order on WhatsApp</button>
+    </a>
+  </div>
 
-  <aside id="cart-sidebar" class="cart-sidebar">
-    <h2>Your Cart</h2>
-    <ul id="cart-list"></ul>
-    <div class="cart-footer">
-      <p id="cart-total">Total: ₹0</p>
-      <button onclick="sendOrderToWhatsApp()">Place Order via WhatsApp</button>
-    </div>
-  </aside>
+  <script>
+    const products = [
+      { id: 1, name: "Tomatoes", price: 30, img: "images/tomatoo.jpg" },
+      { id: 2, name: "Onions", price: 25, img: "images/-onions-background-photo.jpg" }
+    ];
 
-  <footer id="contact" class="site-footer">
-    <div class="container">
-      <p>Questions? WhatsApp us at <a href="https://wa.me/918082753024">+91 80827 53024</a></p>
-      <p>&copy; 2025 POCKET INDIA. All rights reserved.</p>
-    </div>
-  </footer>
+    const cart = {};
 
-  <script src="js/app.js"></script>
+    const productList = document.getElementById("product-list");
+
+    products.forEach((product) => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <img src="${product.img}" alt="${product.name}" />
+        <h3>${product.name}</h3>
+        <p>₹${product.price} /kg</p>
+        <button class="cart-button" id="btn-${product.id}">Add to Cart</button>
+      `;
+      productList.appendChild(div);
+
+      document.addEventListener("click", function (e) {
+        if (e.target && e.target.id === `btn-${product.id}`) {
+          cart[product.name] = (cart[product.name] || 0) + 1;
+          updateCart();
+        }
+      });
+    });
+
+    function updateCart() {
+      const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+      document.getElementById("cart-count").textContent = cartCount;
+
+      // build WhatsApp message
+      let message = "Hello Pocket India! I'd like to order:\n";
+      for (let item in cart) {
+        message += `- ${item}: ${cart[item]} kg\n`;
+      }
+      const whatsappNumber = "8082753024";
+      const link = `https://wa.me/91${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      document.getElementById("whatsapp-link").href = link;
+    }
+  </script>
 </body>
 </html>
