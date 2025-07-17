@@ -80,6 +80,10 @@ function updateCart() {
   document.getElementById('whatsappOrder').href = `https://wa.me/918082753024?text=I%20want%20to%20order:%0A` +
     Object.entries(cart).map(([name, qty]) => `${name} x ${qty}`).join('%0A') +
     `%0ATotal: ₹${total}`;
+
+  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
+  document.getElementById('cartCount').textContent = totalItems;
+  document.getElementById('cartCount').style.display = totalItems > 0 ? 'block' : 'none';
 }
 
 function toggleCart() {
