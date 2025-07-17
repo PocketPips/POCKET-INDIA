@@ -5,16 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pocket India</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
-  <script defer src="js/app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Baloo+2:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="background-design"></div>
   <header class="site-header">
     <h1 class="animated-title">Pocket India</h1>
     <p class="slogan">har jeb ka saathi</p>
-    <p class="provider">Today served by: <strong>Lovely Vegetable Shop, Bari Brahmna</strong></p>
-    <div class="cart-icon">
+    <p class="provider">Today served by: <strong>Lovely Vegetable Shop</strong></p>
+    <div class="cart-icon" style="font-size: 1.5rem; padding: 10px 20px; border: 2px solid #333; border-radius: 10px;">
       🛒 <span id="cart-count">0</span>
     </div>
   </header>
@@ -28,90 +27,14 @@
     </section>
   </main>
 
-  <script>
-    const products = [
-      { name: "Potato", image: "potato.png" },
-      { name: "Ridge Gourd", image: "ridge_ground.png" },
-      { name: "Lady Finger", image: "lady_finger.png" },
-      { name: "Lemon", image: "lemon.png" },
-      { name: "Chilli", image: "chilli.png" },
-      { name: "Cucumber", image: "cucumber.png" },
-      { name: "Mushroom", image: "mushroom.png" },
-      { name: "Brinjal", image: "brinjal.png" },
-      { name: "Pumpkin", image: "pumpkin.png" }
-    ];
+  <!-- Cart Popup -->
+  <div id="cart-popup" class="cart-popup" style="display: none; font-family: 'Baloo 2', cursive;">
+    <h3>Your Cart</h3>
+    <ul id="cart-items"></ul>
+    <button id="place-order">Place Order on WhatsApp</button>
+  </div>
 
-    const cart = {};
-
-    const productList = document.getElementById("product-list");
-    const cartCount = document.getElementById("cart-count");
-
-    products.forEach(product => {
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <img src="images/${product.image}" alt="${product.name}" class="product-image">
-        <h3>${product.name}</h3>
-        <div class="cart-controls" id="controls-${product.name}">
-          <button onclick="addToCart('${product.name}')">Add to Cart</button>
-        </div>
-      `;
-      productList.appendChild(card);
-    });
-
-    function addToCart(name) {
-      if (!cart[name]) cart[name] = 0;
-      cart[name]++;
-      updateCartUI(name);
-      updateCartCount();
-    }
-
-    function removeFromCart(name) {
-      if (cart[name]) {
-        cart[name]--;
-        if (cart[name] <= 0) delete cart[name];
-        updateCartUI(name);
-        updateCartCount();
-      }
-    }
-
-    function updateCartUI(name) {
-      const container = document.getElementById(`controls-${name}`);
-      if (!cart[name]) {
-        container.innerHTML = `<button onclick="addToCart('${name}')">Add to Cart</button>`;
-      } else {
-        container.innerHTML = `
-          <button onclick="removeFromCart('${name}')">-</button>
-          <span>${cart[name]}</span>
-          <button onclick="addToCart('${name}')">+</button>
-        `;
-      }
-    }
-
-    function updateCartCount() {
-      const total = Object.values(cart).reduce((sum, n) => sum + n, 0);
-      cartCount.textContent = total;
-    }
-
-    document.querySelector(".cart-icon").addEventListener("click", () => {
-      if (Object.keys(cart).length === 0) {
-        alert("Your cart is empty.");
-        return;
-      }
-
-      let message = "🛒 Your Order Summary:\n\n";
-      Object.keys(cart).forEach(name => {
-        message += `• ${name}: ${cart[name]}\n`;
-      });
-
-      message += "\nPlace order on WhatsApp?";
-
-      if (confirm(message)) {
-        const query = encodeURIComponent(message);
-        window.open(`https://wa.me/918082753024?text=${query}`, "_blank");
-      }
-    });
-  </script>
+  <script src="js/app.js"></script>
 </body>
 </html>
 
