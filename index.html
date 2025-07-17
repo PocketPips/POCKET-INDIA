@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pocket India - Fresh Grocery</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket India - Fresh & Fun Grocery</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>🥦 Pocket India</h1>
-    <p>Your Instant Grocery Partner</p>
+  <header class="header animated">
+    <div class="container">
+      <h1 class="title">🛒 Pocket India</h1>
+      <p class="subtitle">Your fun, fresh, and fast grocery buddy</p>
+    </div>
   </header>
 
-  <main id="product-list" class="product-grid"></main>
+  <nav class="category-nav">
+    <button class="cat-btn" onclick="filterCategory('All')">All</button>
+    <button class="cat-btn" onclick="filterCategory('Vegetables')">Vegetables</button>
+    <button class="cat-btn" onclick="filterCategory('Fruits')">Fruits</button>
+    <button class="cat-btn" onclick="filterCategory('Dairy')">Dairy</button>
+    <button class="cat-btn" onclick="filterCategory('Snacks')">Snacks</button>
+    <button class="cat-btn" onclick="filterCategory('Beverages')">Beverages</button>
+  </nav>
 
-  <div id="floating-cart">
-    🛒 <span id="cart-count">0</span> items
+  <main class="product-grid" id="product-list">
+    <!-- Products will be dynamically inserted -->
+  </main>
+
+  <div id="floating-cart" class="floating-cart">
+    🛒 Cart: <span id="cart-count">0</span>
   </div>
 
-  <footer>
-    <button id="whatsapp-order-btn">📱 Place Order via WhatsApp</button>
+  <section class="checkout-panel" id="checkout-panel">
+    <h3>Your Cart Summary</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: ₹<span id="cart-total">0</span></p>
+    <button class="whatsapp-button" onclick="placeOrder()">📲 Place Order via WhatsApp</button>
+  </section>
+
+  <footer class="footer">
+    <p>Made with ❤️ for Jammu | © Pocket India 2025</p>
   </footer>
 
   <script src="js/app.js"></script>
 </body>
 </html>
+
