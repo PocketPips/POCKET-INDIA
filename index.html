@@ -1,30 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pocket India - har jeb ka saathi</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket India Grocery</title>
+  <title>Pocket India - Fresh Grocery Delivery</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="site-header">
-    <div class="animated-title">Pocket India</div>
-    <div class="slogan">har jeb ka saathi</div>
-    <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
-    <p style="font-size: 12px; margin-top: 5px;">Today served by Lovely Vegetable Shop, Bari Brahmna</p>
-  </div>
+  <header>
+    <h1>🛒 Pocket India</h1>
+    <p>Fresh Groceries & Vegetables Delivered Fast</p>
+    <h1><img src="images/logo.png" class="logo"> Pocket India</h1>
+    <p>Fresh Grocery & Vegetables at Your Doorstep</p>
+  </header>
 
-  <div class="category">
-    <h2>Vegetables</h2>
-    <div id="product-list" class="product-list"></div>
-  </div>
+  <main>
+    <section id="categories">
+      <button class="category-btn" onclick="showCategory('vegetables')">🥦 Vegetables</button>
+      <button class="category-btn" onclick="showCategory('fruits')">🍎 Fruits</button>
+      <button class="category-btn" onclick="showCategory('dairy')">🥛 Dairy</button>
+      <button class="category-btn" onclick="showCategory('snacks')">🍿 Snacks</button>
+      <button class="category-btn" onclick="showCategory('beverages')">🥤 Beverages</button>
+    <section class="categories">
+      <button class="cat-btn" data-cat="vegetables">🥦 Vegetables</button>
+      <button class="cat-btn" data-cat="fruits">🍎 Fruits</button>
+      <button class="cat-btn" data-cat="dairy">🥛 Dairy</button>
+      <button class="cat-btn" data-cat="snacks">🍪 Snacks</button>
+      <button class="cat-btn" data-cat="beverages">🥤 Beverages</button>
+    </section>
 
-  <div class="cart-summary" id="cart-summary">
-    <h3>Cart Summary</h3>
-    <ul id="cart-items"></ul>
-    <button class="whatsapp-btn" onclick="placeOrder()">Place Order on WhatsApp</button>
-  </div>
+    <section id="product-container" class="product-section">
+      <!-- Products will be inserted here dynamically -->
+    </section>
+    <section id="items" class="items-section"></section>
+
+    <section id="cart" class="cart-section">
+      <h2>Your Cart 🧺</h2>
+      <ul id="cart-items"></ul>
+      <p id="total-price">Total: ₹0</p>
+      <a id="whatsapp-order" target="_blank" href="https://wa.me/918082753024">Place Order via WhatsApp</a>
+    </section>
+  </main>
+    <div class="cart-popup" id="cartPopup">
+      <h2>🛒 Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <p id="totalPrice">Total: ₹0</p>
+      <a id="whatsappOrder" class="whatsapp-btn" target="_blank">Order on WhatsApp</a>
+      <button onclick="toggleCart()" class="close-cart">Close</button>
+    </div>
+
+  <footer>
+    <p>Made with ❤️ in India | Pocket India Grocery</p>
+  </footer>
+    <button class="floating-cart" onclick="toggleCart()">🛒</button>
+  </main>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
-
+</html>
