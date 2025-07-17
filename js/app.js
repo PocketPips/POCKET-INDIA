@@ -1,59 +1,79 @@
 const products = [
-  { name: "Potato", price: 30, image: "images/potato.jpg" },
-  { name: "Ridge Gourd", price: 40, image: "images/ridge_ground.jpg" },
-  { name: "Lady Finger", price: 35, image: "images/lady_finger.jpg" },
-  { name: "Lemon", price: 25, image: "images/lemon.jpg" },
-  { name: "Chilli", price: 20, image: "images/chilli.jpg" },
-  { name: "Cucumber", price: 28, image: "images/cucumber.jpg" },
-  { name: "Mushroom", price: 80, image: "images/mushroom.jpg" },
-  { name: "Brinjal", price: 35, image: "images/brinjal.jpg" },
-  { name: "Pumpkin", price: 18, image: "images/pumpkin.jpg" },
-  { name: "Ridge Gourd 2", price: 38, image: "images/ridge_ground_01.jpg" }
+  "potato", "ridge_ground", "lady_finger", "lemon", "chilli", "cucumber",
+  "mushroom", "brinjal", "pumpkin"
 ];
 
-let cart = {};
-const cartCountEl = document.getElementById("cart-count");
+const cart = {};
+const cartCount = document.getElementById("cart-count");
 const productList = document.getElementById("product-list");
 
 function renderProducts() {
-  productList.innerHTML = "";
-  products.forEach((product, index) => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>₹${product.price} / kg</p>
-      <button class="add-btn" onclick="addToCart(${index})">Add</button>
+  products.forEach(name => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+    div.innerHTML = `
+      <img src="images/${name}.png" alt="${name}" />
+      <p>${name.replace(/_/g, ' ').toUpperCase()}</p>
+      <div id="controls-${name}">
+        <button class="add-btn" onclick="addToCart('${name}')">Add to Cart</button>
+      </div>
     `;
-    productList.appendChild(card);
+    productList.appendChild(div);
   });
 }
 
-function addToCart(index) {
-  const product = products[index];
-  cart[product.name] = (cart[product.name] || 0) + 1;
+function addToCart(name) {
+  if (!cart[name]) cart[name] = 1;
+  else cart[name]++;
 
+  updateCartUI(name);
   updateCartCount();
-  sendToWhatsApp();
+}
+
+function removeFromCart(name) {
+  if (cart[name]) {
+    cart[name]--;
+    if (cart[name] <= 0) delete cart[name];
+    updateCartUI(name);
+    updateCartCount();
+  }
+}
+
+function updateCartUI(name) {
+  const controls = document.getElementById(`controls-${name}`);
+  if (cart[name]) {
+    controls.innerHTML = `
+      <button class="qty-btn" onclick="removeFromCart('${name}')">-</button>
+      <span class="qty-display">${cart[name]}</span>
+      <button class="qty-btn" onclick="addToCart('${name}')">+</button>
+    `;
+  } else {
+    controls.innerHTML = `
+      <button class="add-btn" onclick="addToCart('${name}')">Add to Cart</button>
+    `;
+  }
 }
 
 function updateCartCount() {
-  let totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
-  cartCountEl.textContent = totalItems;
+  let total = 0;
+  for (let item in cart) total += cart[item];
+  cartCount.textContent = total;
 }
 
-function sendToWhatsApp() {
+function openWhatsAppOrder() {
+  if (Object.keys(cart).length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let message = "Hello! I want to order the following:\n";
+  for (let item in cart) {
+    message += `• ${item.replace(/_/g, ' ')} x ${cart[item]}\n`;
+  }
+
+  const encodedMessage = encodeURIComponent(message);
   const phoneNumber = "8082753024";
-  let message = "🛒 *Pocket India Order*\n\n";
-
-  Object.entries(cart).forEach(([item, qty]) => {
-    message += `• ${item} x ${qty}\n`;
-  });
-
-  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  window.open(whatsappURL, "_blank");
+  window.open(`https://wa.me/91${phoneNumber}?text=${encodedMessage}`, "_blank");
 }
 
 renderProducts();
