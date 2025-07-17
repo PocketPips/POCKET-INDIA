@@ -9,32 +9,113 @@
 </head>
 <body>
   <header>
-    <h1><img src="images/logo.png" class="logo"> Pocket India</h1>
-    <p>Fresh Grocery & Vegetables at Your Doorstep</p>
+    <h1>Pocket India Grocery Store</h1>
   </header>
 
-  <main>
-    <section class="categories">
-      <button class="cat-btn" data-cat="vegetables">🥦 Vegetables</button>
-      <button class="cat-btn" data-cat="fruits">🍎 Fruits</button>
-      <button class="cat-btn" data-cat="dairy">🥛 Dairy</button>
-      <button class="cat-btn" data-cat="snacks">🍪 Snacks</button>
-      <button class="cat-btn" data-cat="beverages">🥤 Beverages</button>
-    </section>
+  <section class="category" id="vegetables">
+    <h2>Fresh Vegetables</h2>
+    <div class="product-list">
 
-    <section id="items" class="items-section"></section>
+      <!-- Potato -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/potato.jpg" class="slider-img active" />
+          <img src="images/potato_01.jpg" class="slider-img" />
+        </div>
+        <h3>Potato</h3>
+        <p>₹25/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Potato', 25)">Add</button>
+      </div>
 
-    <div class="cart-popup" id="cartPopup">
-      <h2>🛒 Your Cart</h2>
-      <ul id="cartItems"></ul>
-      <p id="totalPrice">Total: ₹0</p>
-      <a id="whatsappOrder" class="whatsapp-btn" target="_blank">Order on WhatsApp</a>
-      <button onclick="toggleCart()" class="close-cart">Close</button>
+      <!-- Ridge Ground -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/ridgeground.jpg" class="slider-img active" />
+          <img src="images/ridgeground_01.jpg" class="slider-img" />
+        </div>
+        <h3>Ridge Ground</h3>
+        <p>₹30/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Ridge Ground', 30)">Add</button>
+      </div>
+
+      <!-- Lady Finger -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/ladyfinger.jpg" class="slider-img active" />
+          <img src="images/ladyfinger_01.jpg" class="slider-img" />
+        </div>
+        <h3>Lady Finger</h3>
+        <p>₹40/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Lady Finger', 40)">Add</button>
+      </div>
+
+      <!-- Lemon -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/lemon.jpg" class="slider-img active" />
+          <img src="images/lemon_01.jpg" class="slider-img" />
+        </div>
+        <h3>Lemon</h3>
+        <p>₹10/250g</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Lemon', 10)">Add</button>
+      </div>
+
+      <!-- Chilli -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/chilli.jpg" class="slider-img active" />
+          <img src="images/chilli_01.jpg" class="slider-img" />
+        </div>
+        <h3>Chilli</h3>
+        <p>₹15/250g</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Chilli', 15)">Add</button>
+      </div>
+
+      <!-- Cucumber -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/cucumber.jpg" class="slider-img active" />
+          <img src="images/cucumber_01.jpg" class="slider-img" />
+        </div>
+        <h3>Cucumber</h3>
+        <p>₹18/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Cucumber', 18)">Add</button>
+      </div>
+
+      <!-- Mushroom -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/mushroom.jpg" class="slider-img active" />
+          <img src="images/mushroom_01.jpg" class="slider-img" />
+        </div>
+        <h3>Mushroom</h3>
+        <p>₹60/200g</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Mushroom', 60)">Add</button>
+      </div>
+
+      <!-- Brinjal -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/brinjal.jpg" class="slider-img active" />
+          <img src="images/brinjal_01.jpg" class="slider-img" />
+        </div>
+        <h3>Brinjal</h3>
+        <p>₹28/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Brinjal', 28)">Add</button>
+      </div>
+
+      <!-- Pumpkin -->
+      <div class="product-card">
+        <div class="image-slider">
+          <img src="images/pumpkin.jpg" class="slider-img active" />
+          <img src="images/pumpkin_01.jpg" class="slider-img" />
+        </div>
+        <h3>Pumpkin</h3>
+        <p>₹22/kg</p>
+        <button class="add-to-cart" onclick="addToCart(this, 'Pumpkin', 22)">Add</button>
+      </div>
+
     </div>
-
-    <button class="floating-cart" onclick="toggleCart()">🛒</button>
-  </main>
-
-  <script src="js/app.js"></script>
+  </section>
 </body>
 </html>
