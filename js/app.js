@@ -1,54 +1,54 @@
 const products = [
-  { name: 'Tomato', price: 30, img: 'images/tomatoo.jpg' },
-  { name: 'Onion', price: 25, img: 'images/-onions-background-photo.jpg' },
-  { name: 'Potato', price: 20, img: 'images/potato.jpg' }, // Add this image
+  { id: 1, name: "Tomato", price: 30, image: "images/tomato.jpg" },
+  { id: 2, name: "Onion", price: 25, image: "images/onion.jpg" },
 ];
 
 const cart = {};
 
-function renderProducts() {
-  const list = document.getElementById('product-list');
-  products.forEach((product, index) => {
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <img src="${product.img}" alt="${product.name}" />
-      <h3>${product.name}</h3>
-      <p>₹${product.price}/kg</p>
-      <button onclick="addToCart(${index}, this)">Add</button>
+function updateCart() {
+  let count = 0;
+  let message = 'Hello! I want to order:\n';
+
+  for (let id in cart) {
+    count += cart[id].qty;
+    message += `${cart[id].name} x${cart[id].qty}\n`;
+  }
+
+  document.getElementById("cart-count").innerText = `Cart: ${count} items`;
+
+  const waURL = `https://wa.me/918082753024?text=${encodeURIComponent(message)}`;
+  document.getElementById("whatsapp-btn").href = waURL;
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  if (cart[id]) {
+    cart[id].qty += 1;
+  } else {
+    cart[id] = { ...product, qty: 1 };
+  }
+
+  document.getElementById(`btn-${id}`).innerText = `Added (${cart[id].qty})`;
+  updateCart();
+}
+
+function loadProducts() {
+  const container = document.getElementById("product-list");
+
+  products.forEach(p => {
+    const box = document.createElement("div");
+    box.className = "product";
+
+    box.innerHTML = `
+      <img src="${p.image}" alt="${p.name}"/>
+      <h3>${p.name}</h3>
+      <p>₹${p.price}/kg</p>
+      <button id="btn-${p.id}" class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
     `;
-    list.appendChild(div);
+
+    container.appendChild(box);
   });
 }
 
-function addToCart(index, button) {
-  const product = products[index];
-  if (!cart[product.name]) {
-    cart[product.name] = { ...product, quantity: 1 };
-  } else {
-    cart[product.name].quantity++;
-  }
-  button.innerText = `Added (${cart[product.name].quantity})`;
-}
+loadProducts();
 
-document.getElementById('checkoutBtn').addEventListener('click', () => {
-  if (Object.keys(cart).length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  let message = `Hello Pocket India,%0AI want to order:%0A`;
-  let total = 0;
-
-  for (let item in cart) {
-    const qty = cart[item].quantity;
-    const price = cart[item].price;
-    total += qty * price;
-    message += `• ${item} - ${qty}kg (₹${qty * price})%0A`;
-  }
-  message += `%0ATotal: ₹${total}%0AThank you!`;
-
-  window.open(`https://wa.me/918082753024?text=${message}`, '_blank');
-});
-
-renderProducts();
