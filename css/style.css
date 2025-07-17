@@ -1,155 +1,145 @@
+/* style.css */
 body {
-  font-family: 'Baloo 2', sans-serif;
   margin: 0;
-  background: linear-gradient(to right, #fffaf0, #fef6ea);
+  font-family: 'Fredoka', sans-serif;
+  background: linear-gradient(to right, #fff9f0, #fff4e0);
   color: #333;
 }
 
 .site-header {
-  background-color: #ff6f3c;
-  padding: 1rem;
   text-align: center;
-  color: #fff;
+  background-color: #f76c2f;
+  color: white;
+  padding: 1rem;
+  border-bottom: 5px solid #4caf50;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   position: relative;
 }
 
 .animated-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #fff;
-  animation: bounce 1s infinite alternate;
+  font-size: 3rem;
+  animation: bounce 2s infinite;
 }
 
 .slogan, .provider {
   font-size: 1.2rem;
-  color: #fff;
+  font-weight: 500;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 .cart-icon {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: #fff;
-  color: #ff6f3c;
-  border-radius: 50%;
-  padding: 0.6rem 1rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  border: 2px solid #4caf50;
+  color: #4caf50;
+  font-weight: bold;
+  transition: transform 0.2s;
 }
 
-.category h2 {
+.cart-icon:hover {
+  transform: scale(1.1);
+}
+
+.category {
+  padding: 2rem;
+}
+
+h2 {
+  color: #4caf50;
   text-align: center;
-  margin-top: 1rem;
-  color: #2f855a;
+  font-size: 2rem;
 }
 
 .product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
 }
 
-.product-card {
+.product-item {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 160px;
   padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out;
 }
 
-.product-card:hover {
+.product-item:hover {
   transform: scale(1.05);
 }
 
-.product-card img {
-  width: 100%;
+.product-item img {
+  width: 100px;
   height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
+  object-fit: contain;
 }
 
-.product-card h3 {
-  font-size: 1rem;
-  margin: 0.5rem 0;
-}
-
-.cart-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.cart-controls button {
-  background: #2f855a;
+.add-btn, .qty-btn {
+  background-color: #f76c2f;
   border: none;
   color: white;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  width: 30px;
-  height: 30px;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
+  margin: 0 0.2rem;
 }
 
-.cart-controls span {
-  font-weight: bold;
+.add-btn:hover, .qty-btn:hover {
+  background-color: #d85b22;
 }
 
 .cart-summary {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   background: #fff;
-  border-top: 3px solid #ff6f3c;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  max-width: 300px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
   display: none;
   z-index: 100;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .cart-summary h3 {
-  margin: 0 0 1rem;
-  color: #2f855a;
+  margin-top: 0;
 }
 
 .cart-summary ul {
-  list-style: none;
   padding: 0;
-  max-height: 200px;
-  overflow-y: auto;
+  list-style: none;
 }
 
 .cart-summary li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  margin: 0.3rem 0;
 }
 
 .whatsapp-btn {
-  display: block;
-  margin-top: 1rem;
-  text-align: center;
-  background: #25D366;
+  background-color: #25d366;
   color: white;
-  padding: 0.8rem;
-  border-radius: 8px;
-  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
   font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
-.hidden {
-  display: none !important;
+.whatsapp-btn:hover {
+  background-color: #1ebc57;
 }
-
-@keyframes bounce {
-  to {
-    transform: translateY(-10px);
-  }
-}
-
