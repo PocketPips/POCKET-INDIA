@@ -1,48 +1,25 @@
-const cart = [];
-const cartListEl = document.getElementById('cart-list');
-const cartTotalEl = document.getElementById('cart-total');
-const cartCountEl = document.getElementById('cart-count');
-const sidebar = document.getElementById('cart-sidebar');
-document.getElementById('cart-toggle').onclick = () =>
-  sidebar.classList.toggle('open');
+const cart = {};
+const buttons = document.querySelectorAll(".add-btn");
 
-function addToCart(name, price) {
-  const existing = cart.find(i => i.name === name);
-  if (existing) existing.qty++;
-  else cart.push({ name, price, qty: 1 });
-  updateCartUI();
-  sidebar.classList.add('open');
-}
+buttons.forEach((btn) => {
+  const productId = btn.dataset.id;
+  cart[productId] = 0;
 
-function updateCartUI() {
-  cartListEl.innerHTML = '';
-  let total = 0;
-  let count = 0;
-  cart.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.name} x${item.qty} — ₹${item.qty * item.price}`;
-    cartListEl.appendChild(li);
-    total += item.qty * item.price;
-    count += item.qty;
+  btn.addEventListener("click", () => {
+    cart[productId]++;
+    btn.innerText = `Added (${cart[productId]})`;
+    updateWhatsAppLink();
   });
-  cartTotalEl.textContent = `Total: ₹${total}`;
-  cartCountEl.textContent = count;
-}
+});
 
-function sendOrderToWhatsApp() {
-  if (cart.length === 0) { alert('Your cart is empty!'); return; }
-
-  let message = '*New Order – POCKET INDIA*%0A%0A';
-  cart.forEach(item => {
-    message += `• ${item.name} x${item.qty} = ₹${item.qty * item.price}%0A`;
-  });
-  const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
-  message += `%0A*Total: ₹${total}*`;
-
-  const phone = '918082753024';
-  window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
-}
-
-function scrollIntoProducts() {
-  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+function updateWhatsAppLink() {
+  let message = "Order from Pocket India:%0A";
+  for (let item in cart) {
+    if (cart[item] > 0) {
+      message += `• ${item} x ${cart[item]}%0A`;
+    }
+  }
+  const phoneNumber = "8082753024";
+  const waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  document.getElementById("checkout-link").href = waUrl;
 }
