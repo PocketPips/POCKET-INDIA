@@ -21,7 +21,7 @@ if (card) {
 // APK download buttons
 document.querySelectorAll("#downloadBtn, #downloadCta").forEach(btn => {
     btn?.addEventListener("click", () => {
-        window.location.href = "https://expo.dev/artifacts/eas/d3kZuFbsx3M7XM3bhHdeBf.apk";  
+        window.location.href = https://drive.google.com/file/d/1BiV3ja2pZX0y6D5oqrvedpEcYidvZVJO/view?usp=drivesdk;  
     });
 });
 
