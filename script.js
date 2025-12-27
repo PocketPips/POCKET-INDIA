@@ -21,7 +21,8 @@ if (card) {
 // APK download buttons
 document.querySelectorAll("#downloadBtn, #downloadCta").forEach(btn => {
     btn?.addEventListener("click", () => {
-        window.location.href = https://drive.google.com/file/d/1BiV3ja2pZX0y6D5oqrvedpEcYidvZVJO/view?usp=drivesdk;  
+        window.location.href =https://drive.google.com/uc?export=download&id=1BiV3ja2pZX0y6D5oqrvedpEcYidvZVJO
+;  
     });
 });
 
