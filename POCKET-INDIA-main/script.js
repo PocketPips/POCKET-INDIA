@@ -18,11 +18,10 @@ if (card) {
     });
 }
 
-// APK download buttons
+// Download buttons (Play Store link)
 document.querySelectorAll("#downloadBtn, #downloadCta").forEach(btn => {
     btn?.addEventListener("click", () => {
-        window.location.href =https://drive.google.com/uc?export=download&id=1BiV3ja2pZX0y6D5oqrvedpEcYidvZVJO
-;  
+        window.open("https://play.google.com/store/apps/details?id=com.mentorship.pocketration", "_blank");
     });
 });
 
